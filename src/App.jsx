@@ -7,10 +7,17 @@ class App1 extends Component{
     return(
       <div className="App">
         <div className="App-title">Music Guru</div>
-        <div>
-          <input placeholder="search the artist..."/>
-          <button>Find</button>
-        </div>
+          <FormGroup>
+           <InputGroup>
+             <FormControl
+               type="text"
+               placeholder="Search for an Artist"
+             />
+             <InputGroup.Addon>
+               <Glyphicon glyph="search"></Glyphicon>
+             </InputGroup.Addon>
+           </InputGroup>
+         </FormGroup>
         <div className="Profile">
           <div>Artist Picture</div>
           <div>Artist Name</div>
