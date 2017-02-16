@@ -3,6 +3,18 @@ import './App.css';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
 
 class App1 extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      query:""
+    }
+  }
+
+ search(){
+   console.log('this.state',this.state);
+ }
+
+
   render(){
     return(
       <div className="App">
@@ -12,8 +24,16 @@ class App1 extends Component{
              <FormControl
                type="text"
                placeholder="Search for an Artist"
+               value={this.state.query}
+               onChange={event => {this.setState({query: event.target.value})}}
+               onKeyPress={event => {
+                           console.log('event-key',event.key)
+                           if(event.key === 'Enter'){
+                             this.search();
+                           }
+               }}
              />
-             <InputGroup.Addon>
+           <InputGroup.Addon onClick={() => this.search()}>
                <Glyphicon glyph="search"></Glyphicon>
              </InputGroup.Addon>
            </InputGroup>
