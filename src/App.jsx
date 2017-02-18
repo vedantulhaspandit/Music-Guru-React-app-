@@ -8,7 +8,8 @@ class App1 extends Component{
     super(props);
     this.state = {
       query:"",
-      artist:null
+      artist:null,
+      tracks:[]
     }
   }
 
@@ -17,16 +18,29 @@ class App1 extends Component{
     const BASE_URL = 'https://api.spotify.com/v1/search?';
   //const FETCH_URL = BASE_URL + 'q=' + this.state.query + '&type=artist&limit=1';
     let FETCH_URL = `${BASE_URL}q=${this.state.query}&type=artist&limit=1`;
+    const ALBUM_URL = 'https://api.spotify.com/v1/artists/';
     console.log("FETCH_URL",FETCH_URL);
+
     fetch(FETCH_URL, {
       method: 'GET'
     })
     .then(response => response.json())
     .then(json => {
-      //console.log('json',json);
+      console.log('json',json);
       const artist = json.artists.items[0];
       //console.log('artist',artist);
       this.setState({artist:artist});
+      //https://api.spotify.com/v1/artists/{id}/top-tracks
+      FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=US&`
+      fetch(FETCH_URL, {
+        method: 'GET'
+      })
+      .then(response => response.json())
+      .then(json => {
+        console.log('artist\'s top tracks:', json);
+        const { tracks } = json; // const tracks = json.tracks
+        this.setState({tracks});
+      })
     })
     .catch(error => console.log(error));
 
@@ -37,7 +51,7 @@ class App1 extends Component{
     return(
       <div className="App">
         <div className="App-title">Music Guru</div>
-          <FormGroup>
+        <FormGroup>
            <InputGroup>
              <FormControl
                type="text"
@@ -55,13 +69,19 @@ class App1 extends Component{
                <Glyphicon glyph="search"></Glyphicon>
              </InputGroup.Addon>
            </InputGroup>
-         </FormGroup>
-        <Profile
-          artist={this.state.artist}
-        />
-        <div className="Gallery">
-           Gallery
-        </div>
+        </FormGroup>
+        {
+          this.state.artist !== null
+          ? <div>
+              <Profile
+                artist={this.state.artist}
+              />
+              <div className="Gallery">
+                Gallery
+              </div>
+            </div>
+           : <div></div>
+        }
       </div>
 
     )

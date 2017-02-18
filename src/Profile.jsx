@@ -26,8 +26,8 @@ class Profile extends Component {
               {
                 artist.genres.map((genre, key) => {
                   genre = genre !== artist.genres[artist.genres.length-1] // checking whether the genre item is last in array or not. if last, donot add comma, else add
-                              ? ` ${genre},`
-                              : ` ${genre}`;
+                                ? ` ${genre},`
+                                : ` ${genre}`;
                   return (
                     <span key={key}>{genre}</span>
                   )
