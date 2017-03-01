@@ -1,4 +1,5 @@
-#Music Guru  - Designed and developed a responsive React.js web application that enables user to search for a particular artist/music band and displays the relevant profile, top 10 popular tracks 
+#Music Guru  
+Designed and developed a responsive React.js web application that enables user to search for a particular artist/music band and displays the relevant profile, top 10 popular tracks 
 
 
 
